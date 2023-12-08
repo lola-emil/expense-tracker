@@ -1,4 +1,3 @@
-import 'package:expense_tracker/shared/color/dark_color_scheme.dart';
 import 'package:flutter/material.dart';
 
 class FormInput extends StatefulWidget {
@@ -27,8 +26,7 @@ class _FormInputState extends State<FormInput> {
       decoration: InputDecoration(
         labelText: widget.labelText,
         prefixIcon: Icon(widget.icon),
-        enabledBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(color: CustomColorScheme.mySurface)),
+        enabledBorder: const UnderlineInputBorder(),
       ),
     );
   }

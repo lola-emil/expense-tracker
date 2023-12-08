@@ -28,9 +28,10 @@ class _SignInFormState extends State<SignInForm> {
           obscureText: true,
           onChanged: (value) {},
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 16  * 2),
         CustomButton(text: "Sign In", onPressed: () {})
       ],
     );
   }
 }
+

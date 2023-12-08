@@ -1,5 +1,5 @@
-import 'package:expense_tracker/shared/color/dark_color_scheme.dart';
-import 'package:expense_tracker/features/home/presentation/pages/home_page.dart';
+import 'package:expense_tracker/features/expense/pages/overview_page.dart';
+import 'package:expense_tracker/shared/color/custom_color_scheme.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: const CustomColorScheme(),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      home: const OverviewPage(),
       debugShowCheckedModeBanner: false,
     );
   }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomColorScheme extends ColorScheme {
   // Define your custom colors here
-  static const Color myBackground = Color.fromRGBO(23, 23, 23, 1);
+  static const Color myBackground = Color.fromRGBO(10, 10, 10, 1);
   static const Color onMyBackground = Colors.white;
 
   // static const Color myPrimary = Color(0x003b82f6);
@@ -13,9 +13,9 @@ class CustomColorScheme extends ColorScheme {
   static const Color onMySecondary = Color(0x00171717);
 
   static const Color myError = Color.fromRGBO(251, 113, 133, 1);
-  static const Color onMyError = Color(0x00ffffff);
+  static const Color onMyError = Colors.white;
 
-  static const Color mySurface = Color.fromRGBO(40, 40, 40, 1);
+  static const Color mySurface = Color.fromRGBO(23, 23, 23, 1);
   static const Color onMySurface = Colors.white;
 
   const CustomColorScheme(

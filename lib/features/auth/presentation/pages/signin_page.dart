@@ -20,7 +20,7 @@ class SignInPage extends StatelessWidget {
             Expanded(
               child: Center(
                 child: Text(
-                  "SIGN IN",
+                  "WELCOME BACK",
                   style: TextStyle(fontSize: 16 * 1.25),
                 ),
               ),
@@ -28,10 +28,6 @@ class SignInPage extends StatelessWidget {
 
             // Form Section
             Expanded(child: SignInForm()),
-            Text(
-              "Don't have an account yet?",
-              style: TextStyle(fontSize: 16),
-            ),
             SizedBox(height: 16)
           ],
         ),

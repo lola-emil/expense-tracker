@@ -1,4 +1,4 @@
-import 'package:expense_tracker/features/expense/pages/overview_page.dart';
+import 'package:expense_tracker/features/auth/presentation/pages/signin_page.dart';
 import 'package:expense_tracker/shared/color/custom_color_scheme.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: const CustomColorScheme(),
         useMaterial3: true,
       ),
-      home: const OverviewPage(),
+      home: const SignInPage(),
       debugShowCheckedModeBanner: false,
     );
   }

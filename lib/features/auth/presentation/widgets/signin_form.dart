@@ -1,3 +1,4 @@
+import 'package:expense_tracker/features/expense/pages/overview_page.dart';
 import 'package:expense_tracker/shared/widgets/custom_button.dart';
 import 'package:expense_tracker/features/auth/presentation/widgets/form_input.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,9 @@ class _SignInFormState extends State<SignInForm> {
           onChanged: (value) {},
         ),
         const SizedBox(height: 16  * 2),
-        CustomButton(text: "Sign In", onPressed: () {})
+        CustomButton(text: "Sign In", onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (builder) => const OverviewPage()));
+        })
       ],
     );
   }

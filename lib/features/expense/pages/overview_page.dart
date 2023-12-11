@@ -1,3 +1,5 @@
+import 'package:expense_tracker/features/expense/pages/addrecord_page.dart';
+import 'package:expense_tracker/features/expense/widgets/doughtnut_chart.dart';
 import 'package:expense_tracker/features/expense/widgets/drawer_menu.dart';
 import 'package:expense_tracker/shared/color/custom_color_scheme.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +20,10 @@ class _OverviewPageState extends State<OverviewPage> {
     return Scaffold(
       key: _scaffoldKey,
       drawer: const DrawerMenu(),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (builder) => const AddRecordPage()));
+          }, child: const Icon(FluentIcons.add_12_regular)),
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: AppBar(
@@ -39,7 +45,24 @@ class _OverviewPageState extends State<OverviewPage> {
           elevation: 0,
         ),
       ),
-      body: Container(),
+      body: ListView(
+        children: const [
+          SizedBox(
+            height: 16,
+          ),
+          FractionallySizedBox(
+              widthFactor: .9,
+              child: Text(
+                "December 2024",
+                style:
+                    TextStyle(fontSize: 16 * 1.25, fontWeight: FontWeight.bold),
+              )),
+          SizedBox(
+            height: 16,
+          ),
+          DoughnutChart(),
+        ],
+      ),
     );
   }
 }

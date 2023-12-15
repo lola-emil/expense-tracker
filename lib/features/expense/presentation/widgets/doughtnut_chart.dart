@@ -17,13 +17,7 @@ class _DoughnutChartState extends State<DoughnutChart> {
         widthFactor: 1,
         child: PieChart(
           PieChartData(sections: [
-            PieChartSectionData(
-              color: Colors.red,
-              showTitle: false,
-              value: 40,
-              title: "40%",
-              radius: 80
-            ),
+
             PieChartSectionData(
               color: Colors.pink,
               value: 30,
@@ -32,7 +26,7 @@ class _DoughnutChartState extends State<DoughnutChart> {
               radius: 80
             ),
             PieChartSectionData(
-              color: Colors.purple,
+              color: Colors.amber,
               value: 12,
               showTitle: false,
               title: "12%",

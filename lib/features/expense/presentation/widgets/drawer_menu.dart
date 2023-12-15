@@ -58,15 +58,15 @@ class DrawerMenu extends StatelessWidget {
                       child: Column(
                         children: [
                           ListTile(
-                            contentPadding: const EdgeInsets.all(10),
+                            contentPadding: const EdgeInsets.all(5),
                             leading: const Icon(Icons.dashboard),
                             title: const Text("Overview"),
                             onTap: () {},
                           ),
                           ListTile(
-                            contentPadding: const EdgeInsets.all(10),
+                            contentPadding: const EdgeInsets.all(5),
                             leading: const Icon(Icons.list),
-                            title: const Text("Records"),
+                            title: const Text("Transactions"),
                             onTap: () {
                             },
                           ),
@@ -74,7 +74,7 @@ class DrawerMenu extends StatelessWidget {
                       ),
                     ),
                     ListTile(
-                      contentPadding: const EdgeInsets.all(10),
+                      contentPadding: const EdgeInsets.all(5),
                       leading: const Icon(FluentIcons.sign_out_20_filled),
                       title: const Text("Sign Out"),
                       onTap: () {

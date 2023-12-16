@@ -1,8 +1,11 @@
+import 'package:expense_tracker/features/tracker/model/overview_model.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class DoughnutChart extends StatefulWidget {
-  const DoughnutChart({super.key});
+  final List<OverviewModel> overviewList;
+
+  const DoughnutChart({super.key, required this.overviewList});
 
   @override
   State<DoughnutChart> createState() => _DoughnutChartState();
@@ -16,30 +19,16 @@ class _DoughnutChartState extends State<DoughnutChart> {
       child: FractionallySizedBox(
         widthFactor: 1,
         child: PieChart(
-          PieChartData(sections: [
-
-            PieChartSectionData(
-              color: Colors.pink,
-              value: 30,
-              showTitle: false,
-              title: "30%",
-              radius: 80
-            ),
-            PieChartSectionData(
-              color: Colors.amber,
-              value: 12,
-              showTitle: false,
-              title: "12%",
-              radius: 80
-            ),
-            PieChartSectionData(
-              color: Colors.blueAccent,
-              value: 18,
-              showTitle: false,
-              title: "18%",
-              radius: 80
-            ),
-          ]),
+          PieChartData(
+              sections: List.generate(
+            widget.overviewList.length,
+            (index) => PieChartSectionData(
+                color: Colors.pink,
+                value: widget.overviewList[index].totalSales,
+                showTitle: false,
+                title: widget.overviewList[index].category,
+                radius: 80),
+          )),
           swapAnimationDuration: const Duration(milliseconds: 150), // Optional
           swapAnimationCurve: Curves.linear,
         ),

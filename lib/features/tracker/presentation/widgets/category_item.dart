@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 
 class CategoryItem extends StatelessWidget {
-  const CategoryItem({super.key});
+  final String category;
+  final double percent;
+
+  const CategoryItem(
+      {super.key,
+      required this.category,
+      required this.percent});
 
   @override
   Widget build(BuildContext context) {
@@ -16,14 +22,14 @@ class CategoryItem extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text("Food"),
+                Text(category),
                 const SizedBox(
                   height: 5,
                 ),
                 SizedBox(
                   height: 10,
                   child: FractionallySizedBox(
-                    widthFactor: .5,
+                    widthFactor: percent / 100,
                     heightFactor: 1,
                     child: Container(
                       decoration: BoxDecoration(
@@ -35,7 +41,7 @@ class CategoryItem extends StatelessWidget {
               ],
             ),
           ),
-          const Text("50%")
+          Text("$percent%")
         ],
       ),
     );

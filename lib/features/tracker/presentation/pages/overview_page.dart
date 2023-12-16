@@ -1,10 +1,10 @@
 import 'dart:ui';
 
-import 'package:expense_tracker/features/expense/presentation/pages/addrecord_page.dart';
-import 'package:expense_tracker/features/expense/presentation/widgets/category_item.dart';
-import 'package:expense_tracker/features/expense/presentation/widgets/doughtnut_chart.dart';
-import 'package:expense_tracker/features/expense/presentation/widgets/drawer_menu.dart';
-import 'package:expense_tracker/features/expense/presentation/widgets/transaction_list_item.dart';
+import 'package:expense_tracker/features/tracker/presentation/pages/addrecord_page.dart';
+import 'package:expense_tracker/features/tracker/presentation/widgets/category_item.dart';
+import 'package:expense_tracker/features/tracker/presentation/widgets/doughtnut_chart.dart';
+import 'package:expense_tracker/features/tracker/presentation/widgets/drawer_menu.dart';
+import 'package:expense_tracker/features/tracker/presentation/widgets/transaction_list_item.dart';
 import 'package:expense_tracker/shared/color/custom_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';

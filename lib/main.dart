@@ -1,4 +1,4 @@
-import 'package:expense_tracker/features/expense/presentation/pages/overview_page.dart';
+import 'package:expense_tracker/features/tracker/presentation/pages/overview_page.dart';
 import 'package:expense_tracker/shared/color/custom_color_scheme.dart';
 import 'package:flutter/material.dart';
 

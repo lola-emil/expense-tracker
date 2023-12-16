@@ -3,11 +3,38 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:expense_tracker/features/auth/repository/user_repository.dart' as auth_repository;
+import "package:flutter_secure_storage/flutter_secure_storage.dart";
 
-class DrawerMenu extends StatelessWidget {
+class DrawerMenu extends StatefulWidget {
 
   const DrawerMenu({super.key});
-  
+
+  @override
+  State<DrawerMenu> createState() => _DrawerMenuState();
+}
+
+class _DrawerMenuState extends State<DrawerMenu> {
+
+  late String? username = "";
+
+  @override
+  void initState() {
+    super.initState();
+
+    FlutterSecureStorage secureStorage = const FlutterSecureStorage();
+
+    secureStorage.read(key: "USERNAME").then((value) {
+      setState(() {
+        username = value;
+      });
+    }).catchError((error) {
+      setState(() {
+        username = "";
+      });
+    });
+
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -28,16 +55,16 @@ class DrawerMenu extends StatelessWidget {
               SizedBox(
                 height: 100,
                 width: containerWidth,
-                child: const Column(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 16,
                     ),
                     Text(
-                      "Fcku Tony",
-                      style: TextStyle(fontSize: 16 * 1.15),
+                      username!,
+                      style: const TextStyle(fontSize: 16 * 1.15),
                     ),
                     // Text(
                     //   "Edit Profile",

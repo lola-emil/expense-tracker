@@ -5,11 +5,11 @@ import 'package:expense_tracker/features/tracker/model/transaction_mode.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 const FlutterSecureStorage secureStorage = FlutterSecureStorage();
+Dio dio = Dio();
 
 Future<List<ExpenseModel>> getTransactions() async {
   String? token = await secureStorage.read(key: "TOKEN");
   String? userId = await secureStorage.read(key: "USER_ID");
-  Dio dio = Dio();
   List<ExpenseModel> list = List.of([]);
   dio.options.headers["authorization"] = "Bearer $token";
 
@@ -33,7 +33,6 @@ Future<List<ExpenseModel>> getTransactions() async {
 Future<List<OverviewModel>> getOverview() async {
   String? token = await secureStorage.read(key: "TOKEN");
   String? userId = await secureStorage.read(key: "USER_ID");
-  Dio dio = Dio();
 
   List<OverviewModel> list = List.of([]);
 
@@ -57,7 +56,6 @@ Future<List<OverviewModel>> getOverview() async {
 Future<List<TransactionModel>> getRecentTransactions() async {
   String? token = await secureStorage.read(key: "TOKEN");
   String? userId = await secureStorage.read(key: "USER_ID");
-  Dio dio = Dio();
 
   List<TransactionModel> list = List.of([]);
 
@@ -73,8 +71,23 @@ Future<List<TransactionModel>> getRecentTransactions() async {
         data[i]["note"],
         data[i]["category"],
         double.parse(data[i]["amount"].toString()),
-        data[i]["created_at"]));
+        data[i]["created_at"],
+        data[i]["type"]));
   }
 
   return list;
+}
+
+Future<void> addTransaction(String category, double amount, String note) async {
+  String? token = await secureStorage.read(key: "TOKEN");
+  String? userId = await secureStorage.read(key: "USER_ID");
+
+  dio.options.headers["authorization"] = "Bearer $token";
+
+  await dio.post("http://localhost:5000/expense/transactions", data: {
+    "category": category,
+    "amount": amount,
+    "note": note,
+    "user_id": userId
+  });
 }

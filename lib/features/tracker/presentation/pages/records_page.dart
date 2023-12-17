@@ -6,7 +6,6 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 
 class RecordsPage extends StatefulWidget {
-
   const RecordsPage({super.key});
 
   @override
@@ -15,7 +14,7 @@ class RecordsPage extends StatefulWidget {
 
 class _RecordsPageState extends State<RecordsPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +47,26 @@ class _RecordsPageState extends State<RecordsPage> {
           ),
         ),
       ),
-      body: Container(),
+      body: ListView(
+        children: [
+          const SizedBox(height: 16),
+          FractionallySizedBox(
+            widthFactor: .9,
+            child: SizedBox(
+              height: 45,
+              child: TextFormField(
+                style: const TextStyle(fontSize: 16),
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(), label: Text("Search")),
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          Column(
+            children: [],
+          )
+        ],
+      ),
     );
   }
 }

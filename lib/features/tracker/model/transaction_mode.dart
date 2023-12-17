@@ -4,7 +4,8 @@ class TransactionModel {
   final String category;
   final double amount;
   final String createdAt;
+  final String type;
 
-  TransactionModel(
-      this.recordId, this.note, this.category, this.amount, this.createdAt);
+  TransactionModel(this.recordId, this.note, this.category, this.amount,
+      this.createdAt, this.type);
 }

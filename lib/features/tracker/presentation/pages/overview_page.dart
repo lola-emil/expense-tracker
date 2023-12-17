@@ -71,14 +71,21 @@ class _OverviewPageState extends State<OverviewPage> {
       key: _scaffoldKey,
       drawer: const DrawerMenu(
       ),
-      floatingActionButton: FloatingActionButton(
-          shape: const CircleBorder(),
-          elevation: 1,
-          onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (builder) => const AddRecordPage()));
-          },
-          child: const Icon(FluentIcons.add_12_regular)),
+      floatingActionButton: Visibility(
+        visible: true,
+        child: FloatingActionButton(
+            shape: const CircleBorder(),
+            elevation: 1,
+            onPressed: () async {
+              final result = await Navigator.push(context,
+                  MaterialPageRoute(builder: (builder) => const AddRecordPage()));
+
+              if (result != null) {
+                fetchData();
+              }
+            },
+            child: const Center(child: Icon(Icons.add))),
+      ),
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: ClipRect(

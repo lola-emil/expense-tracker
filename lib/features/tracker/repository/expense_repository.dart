@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:expense_tracker/features/tracker/model/expense_model.dart';
 import 'package:expense_tracker/features/tracker/model/overview_model.dart';
-import 'package:expense_tracker/features/tracker/model/transaction_mode.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 const FlutterSecureStorage secureStorage = FlutterSecureStorage();
@@ -22,7 +21,7 @@ Future<List<ExpenseModel>> getTransactions() async {
         data[i]["record_id"],
         data[i]["note"],
         data[i]["category"],
-        data[i]["amount"],
+        data[i]["amount"].toDouble(),
         data[i]["user_id"],
         data[i]["created_at"]));
   }
@@ -44,20 +43,18 @@ Future<List<OverviewModel>> getOverview() async {
   dynamic data = response.data["data"];
 
   for (int i = 0; i < data.length; i++) {
-    list.add(OverviewModel(
-        data[i]["category"],
-        double.parse(data[i]["total_sales"].toString()),
-        double.parse(data[i]["percentage"].toString())));
+    list.add(OverviewModel(data[i]["category"],
+        data[i]["total_expense"].toDouble(), data[i]["percentage"].toDouble()));
   }
 
   return list;
 }
 
-Future<List<TransactionModel>> getRecentTransactions() async {
+Future<List<ExpenseModel>> getRecentTransactions() async {
   String? token = await secureStorage.read(key: "TOKEN");
   String? userId = await secureStorage.read(key: "USER_ID");
 
-  List<TransactionModel> list = List.of([]);
+  List<ExpenseModel> list = List.of([]);
 
   dio.options.headers["authorization"] = "Bearer $token";
 
@@ -66,13 +63,13 @@ Future<List<TransactionModel>> getRecentTransactions() async {
   dynamic data = response.data["data"];
 
   for (int i = 0; i < data.length; i++) {
-    list.add(TransactionModel(
+    list.add(ExpenseModel(
         data[i]["record_id"],
         data[i]["note"],
         data[i]["category"],
-        double.parse(data[i]["amount"].toString()),
-        data[i]["created_at"],
-        data[i]["type"]));
+        data[i]["amount"].toDouble(),
+        data[i]["user_id"],
+        data[i]["created_at"]));
   }
 
   return list;
@@ -90,4 +87,50 @@ Future<void> addTransaction(String category, double amount, String note) async {
     "note": note,
     "user_id": userId
   });
+}
+
+Future<List<ExpenseModel>> searchTransaction(String query) async {
+  String? token = await secureStorage.read(key: "TOKEN");
+  String? userId = await secureStorage.read(key: "USER_ID");
+
+  List<ExpenseModel> list = List.of([]);
+
+  dio.options.headers["authorization"] = "Bearer $token";
+  Response response = await dio
+      .get("http://localhost:5000/expense/search?q=$query&userId=$userId");
+  dynamic data = response.data["data"];
+
+  for (int i = 0; i < data.length; i++) {
+    list.add(ExpenseModel(
+        data[i]["record_id"],
+        data[i]["note"],
+        data[i]["category"],
+        data[i]["amount"].toDouble(),
+        data[i]["user_id"],
+        data[i]["created_at"]));
+  }
+
+  return list;
+}
+
+Future<String> getCurrentMonthAndYear() async {
+  String? token = await secureStorage.read(key: "TOKEN");
+
+  dio.options.headers["authorization"] = "Bearer $token";
+  Response response = await dio.get("http://localhost:5000/expense/current-month-year");
+  dynamic data = response.data["data"];
+
+  return data["time"];
+}
+
+
+Future<String> deleteTransaction(String itemId) async {
+  String? token = await secureStorage.read(key: "TOKEN");
+
+  dio.options.headers["authorization"] = "Bearer $token";
+
+  Response response = await dio.delete("http://localhost:5000/expense/transactions/$itemId");
+  dynamic message = response.data["message"];
+
+  return message.toString();
 }

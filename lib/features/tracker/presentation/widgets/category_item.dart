@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 class CategoryItem extends StatelessWidget {
   final String category;
   final double percent;
+  final Color color;
 
   const CategoryItem(
       {super.key,
       required this.category,
-      required this.percent});
+      required this.percent, required this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class CategoryItem extends StatelessWidget {
                     heightFactor: 1,
                     child: Container(
                       decoration: BoxDecoration(
-                          color: Colors.pink,
+                          color: color,
                           borderRadius: BorderRadius.circular(10)),
                     ),
                   ),
@@ -41,6 +42,7 @@ class CategoryItem extends StatelessWidget {
               ],
             ),
           ),
+          const SizedBox(width: 10,),
           Text("$percent%")
         ],
       ),

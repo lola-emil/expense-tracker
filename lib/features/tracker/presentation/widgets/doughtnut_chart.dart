@@ -1,4 +1,5 @@
 import 'package:expense_tracker/features/tracker/model/overview_model.dart';
+import 'package:expense_tracker/shared/color/chart_colors.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,7 @@ class DoughnutChart extends StatefulWidget {
 }
 
 class _DoughnutChartState extends State<DoughnutChart> {
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -23,7 +25,7 @@ class _DoughnutChartState extends State<DoughnutChart> {
               sections: List.generate(
             widget.overviewList.length,
             (index) => PieChartSectionData(
-                color: Colors.pink,
+                color: chartColors[index],
                 value: widget.overviewList[index].totalSales,
                 showTitle: false,
                 title: widget.overviewList[index].category,

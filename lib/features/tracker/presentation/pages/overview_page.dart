@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:expense_tracker/features/tracker/model/expense_model.dart';
 import 'package:expense_tracker/features/tracker/model/overview_model.dart';
 import 'package:expense_tracker/features/tracker/model/transaction_mode.dart';
 import 'package:expense_tracker/features/tracker/presentation/pages/addrecord_page.dart';
@@ -7,6 +8,7 @@ import 'package:expense_tracker/features/tracker/presentation/widgets/category_i
 import 'package:expense_tracker/features/tracker/presentation/widgets/doughtnut_chart.dart';
 import 'package:expense_tracker/features/tracker/presentation/widgets/drawer_menu.dart';
 import 'package:expense_tracker/features/tracker/presentation/widgets/transaction_list_item.dart';
+import 'package:expense_tracker/shared/color/chart_colors.dart';
 import 'package:expense_tracker/shared/color/custom_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
@@ -25,25 +27,41 @@ class _OverviewPageState extends State<OverviewPage> {
 
   bool isLoading = false;
   bool isError = false;
+  bool noRecords = false;
+
+  String currentMonthAndYear = "";
 
   late List<OverviewModel> overviewList;
-  late List<TransactionModel> recentTransactions;
+  late List<ExpenseModel> recentTransactions;
 
   Future<void> fetchData() async {
     setState(() {
       isLoading = true;
+      isError = false;
+      noRecords = false;
     });
 
     try {
       final overviewValue = await expense_repository.getOverview();
       final recentTransactionsValue =
           await expense_repository.getRecentTransactions();
+      final monthAndYear = await expense_repository.getCurrentMonthAndYear();
+
+      print(monthAndYear);
+
+      if (overviewValue.isEmpty && recentTransactionsValue.isEmpty) {
+        setState(() {
+          noRecords = true;
+        });
+      }
 
       setState(() {
         overviewList = overviewValue;
         recentTransactions = recentTransactionsValue;
+        currentMonthAndYear = monthAndYear;
       });
     } catch (error) {
+      print(error);
       setState(
         () {
           isError = true;
@@ -57,6 +75,7 @@ class _OverviewPageState extends State<OverviewPage> {
     }
   }
 
+
   @override
   void initState() {
     fetchData();
@@ -65,20 +84,22 @@ class _OverviewPageState extends State<OverviewPage> {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       key: _scaffoldKey,
-      drawer: const DrawerMenu(
-      ),
+      drawer: const DrawerMenu(),
       floatingActionButton: Visibility(
         visible: true,
         child: FloatingActionButton(
             shape: const CircleBorder(),
             elevation: 1,
             onPressed: () async {
-              final result = await Navigator.push(context,
-                  MaterialPageRoute(builder: (builder) => const AddRecordPage()));
+              final result = await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (builder) => const AddRecordPage()));
 
               if (result != null) {
                 fetchData();
@@ -121,7 +142,9 @@ class _OverviewPageState extends State<OverviewPage> {
         }
 
         if (isError) {
-          return Center(
+          return SizedBox(
+            height: screenHeight,
+            width: screenWidth,
             child: Column(
               children: [
                 const Text("An error occured"),
@@ -132,16 +155,28 @@ class _OverviewPageState extends State<OverviewPage> {
           );
         }
 
+        if (noRecords) {
+          return SizedBox(
+            height: screenHeight,
+            width: screenWidth,
+            child: const Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [Text("No records yet")],
+            ),
+          );
+        }
+
         return ListView(
           children: [
             const SizedBox(
               height: 10,
             ),
-            const FractionallySizedBox(
+            FractionallySizedBox(
                 widthFactor: .9,
                 child: Text(
-                  "December 2024",
-                  style: TextStyle(
+                  currentMonthAndYear,
+                  style: const TextStyle(
                       fontSize: 16 * 1.25, fontWeight: FontWeight.w500),
                 )),
             const SizedBox(
@@ -169,8 +204,10 @@ class _OverviewPageState extends State<OverviewPage> {
                 children: List.generate(
                     overviewList.length,
                     (index) => CategoryItem(
-                        category: overviewList[index].category,
-                        percent: overviewList[index].percentage)),
+                          category: overviewList[index].category,
+                          percent: overviewList[index].percentage,
+                          color: chartColors[index],
+                        )),
               ),
             ),
             const SizedBox(
@@ -189,6 +226,9 @@ class _OverviewPageState extends State<OverviewPage> {
                     children: List.generate(
                         recentTransactions.length,
                         (index) => TransactionListItem(
+                          itemId: recentTransactions[index].id,
+                          onDelete: null,
+                          deleteButtonVisible: false,
                             category: recentTransactions[index].category,
                             description: recentTransactions[index].note,
                             amount:

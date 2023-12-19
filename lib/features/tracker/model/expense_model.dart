@@ -4,7 +4,7 @@ class ExpenseModel {
   final String category;
   final double amount;
   final String userId;
-  final DateTime createdAt;
+  final String createdAt;
 
   ExpenseModel(
     this.id,

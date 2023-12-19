@@ -4,7 +4,6 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:expense_tracker/features/tracker/repository/expense_repository.dart'
     as expense_repository;
-import 'package:go_router/go_router.dart';
 
 class AddRecordPage extends StatefulWidget {
   const AddRecordPage({super.key});

@@ -66,10 +66,15 @@ class _DrawerMenuState extends State<DrawerMenu> {
                       username!,
                       style: const TextStyle(fontSize: 16 * 1.15),
                     ),
-                    // Text(
-                    //   "Edit Profile",
-                    //   style: TextStyle(fontSize: 16, color: CustomColorScheme.myPrimary),
-                    // )
+                    GestureDetector(
+                      onTap: () {
+                        context.go("/update-profile");
+                      },
+                      child: const Text(
+                        "Update Password",
+                        style: TextStyle(fontSize: 16, color: CustomColorScheme.myPrimary),
+                      ),
+                    )
                   ],
                 ),
               ),

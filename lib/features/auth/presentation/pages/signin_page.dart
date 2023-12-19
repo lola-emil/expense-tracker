@@ -20,7 +20,7 @@ class SignInPage extends StatelessWidget {
             Expanded(
               child: Center(
                 child: Text(
-                  "WELCOME BACK",
+                  "SIGN IN",
                   style: TextStyle(fontSize: 16 * 1.25),
                 ),
               ),

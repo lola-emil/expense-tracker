@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:expense_tracker/features/tracker/model/expense_model.dart';
 import 'package:expense_tracker/features/tracker/model/overview_model.dart';
-import 'package:expense_tracker/features/tracker/model/transaction_mode.dart';
 import 'package:expense_tracker/features/tracker/presentation/pages/addrecord_page.dart';
 import 'package:expense_tracker/features/tracker/presentation/widgets/category_item.dart';
 import 'package:expense_tracker/features/tracker/presentation/widgets/doughtnut_chart.dart';
